@@ -10,12 +10,14 @@ import {
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchPokemonCards} from '../store/actions/fetchPokemonCards';
 import {RootState} from '../store/types';
+import {useNavigation} from '@react-navigation/native';
 
 export const PokemonCardsListScreen: React.FC = () => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1);
   const cards = useSelector((state: RootState) => state.cards);
+  const navigation = useNavigation();
 
   useEffect(() => {
     dispatch(fetchPokemonCards(page, () => setIsLoading(false)));
@@ -26,11 +28,17 @@ export const PokemonCardsListScreen: React.FC = () => {
     setPage(page + 1);
   };
 
+  const handlePress = (item: any) => {
+    // Pass item as a parameter
+    // Navigate to the card detail screen with the selected card item
+    navigation.navigate('PokemonCardDetail', {card: item});
+  };
+
   const renderCardItem = ({item}: {item: any}) => (
-    <TouchableOpacity onPress={() => {}}>
+    <TouchableOpacity onPress={() => handlePress(item)}>
       <View style={{flexDirection: 'row', alignItems: 'center', padding: 10}}>
         <Image
-          source={{uri: item.imageUrl}}
+          source={{uri: item.images.large}}
           style={{width: 100, height: 100, marginRight: 10}}
         />
         <Text>{item.name}</Text>

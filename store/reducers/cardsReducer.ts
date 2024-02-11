@@ -5,8 +5,10 @@ const initialState: Card[] = [];
 
 export const cardsReducer = (state = initialState, action: any) => {
   switch (action.type) {
-    case FETCH_POKEMON_CARDS_SUCCESS:
+    case FETCH_POKEMON_CARDS_SUCCESS: {
+      console.log('PAYLOAD', action.payload);
       return [...state, ...action.payload];
+    }
     case SAVE_CARD:
       return state.map(card =>
         card.id === action.payload ? {...card, saved: true} : card,

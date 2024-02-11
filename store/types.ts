@@ -8,7 +8,7 @@ export const REMOVE_CARD = 'REMOVE_CARD';
 export interface Card {
   id: string;
   name: string;
-  imageUrl: string;
+  images: string;
   type: string;
   hp: number;
   abilities: string[];

@@ -23,10 +23,9 @@ export const fetchPokemonCardsFailure = (error: string) => ({
 export const fetchPokemonCards = (page: number, callback: () => void) => {
   return async (dispatch: Dispatch) => {
     dispatch(fetchPokemonCardsRequest());
-
     try {
       const response = await fetchPokemonCard(page);
-      dispatch(fetchPokemonCardsSuccess(response.data.cards));
+      dispatch(fetchPokemonCardsSuccess(response.data));
     } catch (error: any) {
       dispatch(fetchPokemonCardsFailure(error.message));
     } finally {
